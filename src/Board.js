@@ -62,7 +62,7 @@
     },
 
 
-/*
+    /*
          _             _     _
      ___| |_ __ _ _ __| |_  | |__   ___ _ __ ___ _
     / __| __/ _` | '__| __| | '_ \ / _ \ '__/ _ (_)
@@ -141,11 +141,44 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
+      // console.log(majorDiagonalColumnIndexAtFirstRow);
+      var chessBoard = this._currentAttributes;
+      var column = majorDiagonalColumnIndexAtFirstRow;
+      var row = 0;
+      var diagonalValues = [];
+      if (majorDiagonalColumnIndexAtFirstRow < 0) {
+        column = 0;
+        row = Math.abs(majorDiagonalColumnIndexAtFirstRow);
+      }
+      // console.log(majorDiagonalColumnIndexAtFirstRow, '. Row: ', row, '. Column: ', column);
+      while (row <= 3 && column <= 3) {
+        diagonalValues.push(chessBoard[row][column]);
+        column++;
+        row++;
+      }
+      // console.log(diagonalValues);
+      if (diagonalValues.indexOf(1) !== -1) {
+        diagonalValues.splice(diagonalValues.indexOf(1), 1);
+        //[0, 0]
+        if (diagonalValues.indexOf(1) !== -1) {
+          return true;
+        }
+      }
+      return false; // fixme
+      // console.log('Parameter: ', majorDiagonalColumnIndexAtFirstRow, 
+      //             '. Starting Position column: ', column, 
+      //             '. Starting Position row: ', row,
+      //             '. Value', chessBoard[column][row]);
       return false; // fixme
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
+      for (var i = 1 - this._currentAttributes.n; i < this._currentAttributes.n; i++) {
+        if (this.hasMajorDiagonalConflictAt(i)) {
+          return true;
+        }
+      }
       return false; // fixme
     },
 
