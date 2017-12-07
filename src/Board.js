@@ -151,7 +151,7 @@
         row = Math.abs(majorDiagonalColumnIndexAtFirstRow);
       }
       // console.log(majorDiagonalColumnIndexAtFirstRow, '. Row: ', row, '. Column: ', column);
-      while (row <= 3 && column <= 3) {
+      while (row < chessBoard.n && column < chessBoard.n) {
         diagonalValues.push(chessBoard[row][column]);
         column++;
         row++;
@@ -169,7 +169,6 @@
       //             '. Starting Position column: ', column, 
       //             '. Starting Position row: ', row,
       //             '. Value', chessBoard[column][row]);
-      return false; // fixme
     },
 
     // test if any major diagonals on this board contain conflicts
@@ -189,7 +188,31 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      console.log(minorDiagonalColumnIndexAtFirstRow);
+      var chessBoard = this._currentAttributes;
+      var column = minorDiagonalColumnIndexAtFirstRow;
+      var row = 0;
+      var diagonalValues = [];
+      if (minorDiagonalColumnIndexAtFirstRow > 3) {
+        row = minorDiagonalColumnIndexAtFirstRow - chessBoard.n + 1;
+      }
+      diagonalValues.push(chessBoard[row][column]);
+      // console.log(minorDiagonalColumnIndexAtFirstRow, '. Row: ', row, '. Column: ', column);
+      while (row < chessBoard.n && column > 0) {
+        console.log(minorDiagonalColumnIndexAtFirstRow, '. row: ', row, '. column: ', column);
+        diagonalValues.push(chessBoard[row][column]);
+        column--;
+        row++;
+      }
+      console.log(diagonalValues);
+      // if (diagonalValues.indexOf(1) !== -1) {
+      //   diagonalValues.splice(diagonalValues.indexOf(1), 1);
+      //   //[0, 0]
+      //   if (diagonalValues.indexOf(1) !== -1) {
+      //     return true;
+      //   }
+      // }
+      // return false; // fixme
     },
 
     // test if any minor diagonals on this board contain conflicts
