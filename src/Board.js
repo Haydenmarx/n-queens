@@ -193,6 +193,8 @@
       var column = minorDiagonalColumnIndexAtFirstRow;
       var row = 0;
       var diagonalValues = [];
+      
+      // Convert the right most column, except the top most block
       if (minorDiagonalColumnIndexAtFirstRow > 3) {
         row = minorDiagonalColumnIndexAtFirstRow - chessBoard.n + 1;
         column = chessBoard.n - 1;
@@ -208,7 +210,6 @@
       // console.log(diagonalValues);
       if (diagonalValues.indexOf(1) !== -1) {
         diagonalValues.splice(diagonalValues.indexOf(1), 1);
-        [0, 0]
         if (diagonalValues.indexOf(1) !== -1) {
           return true;
         }
@@ -218,7 +219,7 @@
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      for (var i = 0; i < this._currentAttributes.n + this._currentAttributes.n-1; i++) {
+      for (var i = 0; i < this._currentAttributes.n + this._currentAttributes.n - 1; i++) {
         if (this.hasMinorDiagonalConflictAt(i)) {
           return true;
         }
