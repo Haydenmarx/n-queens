@@ -188,35 +188,41 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      console.log(minorDiagonalColumnIndexAtFirstRow);
+      console.log('MinorD Column:', minorDiagonalColumnIndexAtFirstRow);
       var chessBoard = this._currentAttributes;
       var column = minorDiagonalColumnIndexAtFirstRow;
       var row = 0;
       var diagonalValues = [];
       if (minorDiagonalColumnIndexAtFirstRow > 3) {
         row = minorDiagonalColumnIndexAtFirstRow - chessBoard.n + 1;
+        column = chessBoard.n - 1;
       }
-      diagonalValues.push(chessBoard[row][column]);
+      // console.log(minorDiagonalColumnIndexAtFirstRow, ' . row: ', row, ' . column: ', column);
       // console.log(minorDiagonalColumnIndexAtFirstRow, '. Row: ', row, '. Column: ', column);
-      while (row < chessBoard.n && column > 0) {
-        console.log(minorDiagonalColumnIndexAtFirstRow, '. row: ', row, '. column: ', column);
+      while (row < chessBoard.n && column > -1) {
+        // console.log(minorDiagonalColumnIndexAtFirstRow, '. row: ', row, '. column: ', column);
         diagonalValues.push(chessBoard[row][column]);
         column--;
         row++;
       }
-      console.log(diagonalValues);
-      // if (diagonalValues.indexOf(1) !== -1) {
-      //   diagonalValues.splice(diagonalValues.indexOf(1), 1);
-      //   //[0, 0]
-      //   if (diagonalValues.indexOf(1) !== -1) {
-      //     return true;
-      //   }
-      // }
-      // return false; // fixme
+      // console.log(diagonalValues);
+      if (diagonalValues.indexOf(1) !== -1) {
+        diagonalValues.splice(diagonalValues.indexOf(1), 1);
+        [0, 0]
+        if (diagonalValues.indexOf(1) !== -1) {
+          return true;
+        }
+      }
+      return false; // fixme
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
+      for (var i = 0; i < this._currentAttributes.n + this._currentAttributes.n-1; i++) {
+        if (this.hasMinorDiagonalConflictAt(i)) {
+          return true;
+        }
+      }
       return false; // fixme
     }
 
