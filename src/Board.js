@@ -79,11 +79,26 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
+      //this._currentAttributes; // the chess board object
+      var result = this._currentAttributes[rowIndex].slice(); // 1 row of the chess board
+      //[1, 0, 0]
+      if (result.indexOf(1) !== -1) {
+        result.splice(result.indexOf(1), 1);
+        //[0, 0]
+        if (result.indexOf(1) !== -1) {
+          return true;
+        }
+      }
       return false; // fixme
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
+      for (var i = 0; i < this._currentAttributes.n; i++) {
+        if (this.hasRowConflictAt(i)) {
+          return true;
+        }
+      }
       return false; // fixme
     },
 
@@ -94,11 +109,28 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
+      //console.log(this._currentAttributes);
+      var chessBoard = this._currentAttributes;
+      //[row][colIndex]
+      var found = false;
+      
+      for (var i = 0; i < chessBoard.n; i++) {
+        if (chessBoard[i][colIndex] === 1 && found === false) {
+          found = true;
+        } else if (chessBoard[i][colIndex] === 1 && found === true) {
+          return true;
+        }
+      }
       return false; // fixme
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
+      for (var i = 0; i < this._currentAttributes.n; i++) {
+        if (this.hasColConflictAt(i)) {
+          return true;
+        }
+      }
       return false; // fixme
     },
 
