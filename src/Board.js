@@ -78,7 +78,7 @@
     // --------------------------------------------------------------
     //
     // test if a specific row on this board contains a conflict
-    hasRowConflictAt: function(rowIndex) {
+    hasRowConflictAt:  (rowIndex) {
       //this._currentAttributes; // the chess board object
       var result = this._currentAttributes[rowIndex].slice(); // 1 row of the chess board
       //[1, 0, 0]
